@@ -37,7 +37,9 @@ public class SinglePortScript : MonoBehaviour
             port.WriteLine("check");
             if (port.BytesToRead > 0)
             {
-                portStatus.text = port.ReadExisting().Trim();
+                string resp = port.ReadExisting().Trim();
+                portStatus.text = resp;
+                Debug.Log("Received from MicroBit: " + resp);
             }
         }
         catch (System.UnauthorizedAccessException uaae)
