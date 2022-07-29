@@ -34,10 +34,16 @@ public class SinglePortScript : MonoBehaviour
         try
         {
             if (!port.IsOpen) port.Open();
-            port.WriteLine("check");
             if (port.BytesToRead > 0)
             {
-                portStatus.text = port.ReadExisting().Trim();
+                //read whole buffer
+                string gelezen = port.ReadExisting().Trim();
+                //since microbit is so much faster than us, we probably read the same line several times over, so we split it:
+                string[] lijntjes = gelezen.Split(" \n\r".ToCharArray(), System.StringSplitOptions.RemoveEmptyEntries);
+               //Debug.Log("read " + lijntjes.Length + " lines, last = '" + lijntjes[lijntjes.Length-1] + "'");
+
+                portStatus.text = lijntjes[lijntjes.Length - 1];
+                port.DiscardInBuffer();
             }
         }
         catch (System.UnauthorizedAccessException uaae)
