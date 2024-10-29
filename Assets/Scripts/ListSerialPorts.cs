@@ -26,7 +26,8 @@ public class ListSerialPorts : MonoBehaviour
             string[] portnames = SerialPort.GetPortNames();
             Debug.Log("found " + string.Join(",", portnames));
 
-            if (Time.time<5f) UpdateGUI(portnames);
+            //if (Time.time<5f)
+            UpdateGUI(portnames);
         }
     }
 
